@@ -1,0 +1,65 @@
+/* Write your CSS here */
+.app-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.comments-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.comments-input-image-container {
+  display: flex;
+  flex-direction: row;
+}
+.comments-input-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.comments-app-input-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.horizontal-line {
+  color: black;
+  width: 100%;
+}
+.comments-text-and-count-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  width: 100%;
+}
+.user-comments-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.comment-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.username-time-container {
+  display: flex;
+  flex-direction: row;
+}
+.like-delete-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.comment-item-container {
+  display: flex;
+  flex-direction: column;
+}

@@ -81,9 +81,7 @@ class Comments extends Component {
                 cols="60"
                 placeholder="Your Comment"
                 onChange={this.getUserCommentFromInput}
-              >
-                Your Comment
-              </textarea>
+              />
               <button type="submit">Add Comment</button>
             </form>
           </div>

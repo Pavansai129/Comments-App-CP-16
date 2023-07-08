@@ -8,18 +8,25 @@ class CommentItem extends Component {
 
   likeStatus = () => this.setState(prevState => ({isLiked: !prevState.isLiked}))
 
+  onDeleteCommentItem = () => {
+    const {eachComment, onDeleteComment} = this.props
+    onDeleteComment(eachComment.id)
+  }
+
   render() {
     const {isLiked} = this.state
     const {eachComment} = this.props
-    const {userName, userComment} = eachComment
+    const {userName, userComment, profileBackgroundColorValue} = eachComment
     const profileName = userName.slice(0, 1)
     const imgUrl = isLiked
       ? 'https://assets.ccbp.in/frontend/react-js/comments-app/liked-img.png'
       : 'https://assets.ccbp.in/frontend/react-js/comments-app/like-img.png'
     return (
-      <div className="comment-item-container">
+      <li className="comment-item-container">
         <div className="profile-name-username-time-container">
-          <p>{profileName}</p>
+          <p className={`${profileBackgroundColorValue} profile-logo`}>
+            {profileName}
+          </p>
           <div className="user-name-time-user-comment-container">
             <div className="userName-time-container">
               <p>{userName}</p>
@@ -32,17 +39,23 @@ class CommentItem extends Component {
         </div>
         <div className="like-delete-container">
           <div className="like-container">
-            <img src={imgUrl} alt="like" onClick={this.likeStatus} />
-            <p>Like</p>
+            <img src={imgUrl} alt="like" />
+            <button type="button" onClick={this.likeStatus}>
+              Like
+            </button>
           </div>
-          <div>
+          <button
+            type="button"
+            data-testid="delete"
+            onClick={this.onDeleteCommentItem}
+          >
             <img
               src="https://assets.ccbp.in/frontend/react-js/comments-app/delete-img.png"
               alt="delete"
             />
-          </div>
+          </button>
         </div>
-      </div>
+      </li>
     )
   }
 }

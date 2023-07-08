@@ -53,3 +53,9 @@
   display: flex;
   flex-direction: row;
 }
+
+.profile-logo {
+  height: 50px;
+  width: 50px;
+  padding: 10px;
+}

@@ -27,12 +27,32 @@ class Comments extends Component {
   getUserCommentFromInput = event =>
     this.setState({userComment: event.target.value})
 
-  addUserComment = () => {
+  addUserComment = event => {
+    event.preventDefault()
     const {userName, userComment, commentsCount, userCommentsList} = this.state
     const updatedCommentsCount = commentsCount + 1
-    const comment = {userName, userComment}
+    const id = uuidv4()
+    const index = Math.ceil(Math.random() * 10)
+    const updatedIndex = index < 7 ? index : 5
+    const profileBackgroundColorValue =
+      initialContainerBackgroundClassNames[updatedIndex]
+    const comment = {id, userName, userComment, profileBackgroundColorValue}
     this.setState({
       userCommentsList: [...userCommentsList, comment],
+      commentsCount: updatedCommentsCount,
+      userComment: '',
+      userName: '',
+    })
+  }
+
+  onDeleteComment = uniqueId => {
+    const {userCommentsList, commentsCount} = this.state
+    const filteredUserComments = userCommentsList.filter(
+      eachComment => eachComment.id !== uniqueId,
+    )
+    const updatedCommentsCount = commentsCount - 1
+    this.setState({
+      userCommentsList: [...filteredUserComments],
       commentsCount: updatedCommentsCount,
     })
   }
@@ -45,24 +65,27 @@ class Comments extends Component {
           <div className="comments-input-container">
             <h1>Comments</h1>
             <p>Say something about 4.0 Technologies</p>
-            <input
-              type="text"
-              value={userName}
-              onChange={this.getUserNameFromInput}
-              placeholder="Your Name"
-            />
-            <textarea
-              value={userComment}
-              rows="8"
-              cols="60"
-              placeholder="Your Comment"
-              onChange={this.getUserCommentFromInput}
+            <form
+              onSubmit={this.addUserComment}
+              className="comments-input-container"
             >
-              Your Comment
-            </textarea>
-            <button type="button" onClick={this.addUserComment}>
-              Add Comment
-            </button>
+              <input
+                type="text"
+                value={userName}
+                onChange={this.getUserNameFromInput}
+                placeholder="Your Name"
+              />
+              <textarea
+                value={userComment}
+                rows="8"
+                cols="60"
+                placeholder="Your Comment"
+                onChange={this.getUserCommentFromInput}
+              >
+                Your Comment
+              </textarea>
+              <button type="submit">Add Comment</button>
+            </form>
           </div>
           <img
             src="https://assets.ccbp.in/frontend/react-js/comments-app/comments-img.png"
@@ -75,9 +98,15 @@ class Comments extends Component {
           <p>Comments</p>
         </div>
         <div className="comment-item-container">
-          {userCommentsList.map(eachComment => (
-            <CommentItem key={uuidv4()} eachComment={eachComment} />
-          ))}
+          <ul>
+            {userCommentsList.map(eachComment => (
+              <CommentItem
+                key={eachComment.id}
+                eachComment={eachComment}
+                onDeleteComment={this.onDeleteComment}
+              />
+            ))}
+          </ul>
         </div>
       </div>
     )
